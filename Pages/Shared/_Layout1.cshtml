@@ -1,0 +1,42 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Index</title>
+    <link href="~/css/style1.css" rel="stylesheet" />
+</head>
+<body>
+    <div id="container">
+        <div id="header">
+            <div id="logo">
+                <a href="~/index">
+                    <img src="~/img/logo.png" />
+                </a>
+            </div>
+            <div id="banner">
+                <ul>
+
+                    @if(Context.Session.GetString("CustSession") != null){
+                        <li><a href="~/">Home</a></li>
+                        <li><a href="~/Cart">Cart</a></li>
+                        <li><a href="~/Account/Profile">Profile</a></li>
+                        <li><a href="Login" asp-page-handler="Logout">SignOut</a></li>
+                    } else {
+                        <li><a href="~/Account/Login">SignIn</a></li>
+                        <li><a href="~/Account/SignUp">SignUp</a></li>
+                    }
+
+                </ul>
+            </div>
+        </div>
+
+        <div id="content">
+            @RenderBody()
+        </div>
+
+        <div id="footer">footer</div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,104 @@
+﻿@page
+@model WebRazor.Pages.Admin.Customers.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+@{
+    ViewData["PageTitle"] = "Order List";
+    var pagingModel = new WebRazor.Helpers.PagingModel()
+            {
+                currentPage = Model.currentPage,
+                countPages = Model.totalPages,
+                generateUrl = (int? currentPage) => Url.Page("/Admin/Customers/Index", new { currentPage = currentPage, month = Model.month })
+            };
+}
+
+
+<div class="path-admin">ORDERS LIST</div>
+<div class="content-main">
+	<div id="content-main-dashboard">
+		<div id="order-title">
+			<b>Filter by create date:</b>
+			<form method="get" style="display: flex;">
+				<div style="width: 33%;">
+					<span>Choose month:</span>
+					<select asp-for="month">
+						<option value="0">----Select----</option>
+						@for (var i = 1; i < 13; i++)
+						{
+							<option value="@i">@i</option>
+						}
+					</select>
+					<div class="msg-error">@ViewData["msg"]</div>
+				</div>
+				<div id="product-title-2" style="width:60%; padding-top: 0%">
+					<input style=" margin-left: 10%;" asp-for="search" placeholder="Enter customer name to search" />
+				</div>
+
+				<input type="submit" value="Filter">
+			</form>
+		</div>
+		@if (Model.Customers == null || Model.Customers.Count == 0)
+		{
+			<div style="margin: 1% 2%;" class="msg-error">No customers</div>
+		}
+		else
+		{
+			if (Model.month > 0)
+			{
+				<div style="margin: 1% 2%;" class="msg-error">Total customer(s) register: @Model.totalCustomer</div>
+			}
+			<div id="order-table">
+				<table id="orders">
+					<tr>
+						<th>@Html.DisplayNameFor(model => model.Customers[0].CompanyName)</th>
+						<th> @Html.DisplayNameFor(model => model.Customers[0].ContactName)</th>
+						<th>@Html.DisplayNameFor(model => model.Customers[0].ContactTitle)</th>
+						<th> @Html.DisplayNameFor(model => model.Customers[0].Address) </th>
+						<th>@Html.DisplayNameFor(model => model.Customers[0].CreateDate) </th>
+						<th>@Html.DisplayNameFor(model => model.Customers[0].Active) </th>
+					</tr>
+
+					@foreach (var item in Model.Customers)
+					{
+						<tr>
+							<td>
+								@Html.DisplayFor(modelItem => item.CompanyName)
+							</td>
+							<td>
+								@Html.DisplayFor(modelItem => item.ContactName)
+							</td>
+							<td>
+								@Html.DisplayFor(modelItem => item.ContactTitle)
+							</td>
+							<td>
+								@Html.DisplayFor(modelItem => item.Address)
+							</td>
+							<td>
+								@(item.CreateDate.Value == null ? "" : item.CreateDate.Value.ToString("dd-MM-yyyy"))
+							</td>
+							<td>
+								@if (item.Active == true)
+								{
+									<a style="text-decoration: none;" href="~/Admin/Customers/Update?id=@item.CustomerId">De-active</a>
+								}
+								else
+								{
+									<a style="text-decoration: none;" href="~/Admin/Customers/Update?id=@item.CustomerId">Active</a>
+								}
+							</td>
+						</tr>
+					}
+
+				</table>
+
+			</div>
+		}
+		<div id="paging">
+			<div id="paging">
+				<partial name="_Paging" model="@pagingModel" />
+			</div>
+		</div>
+	</div>
+</div>

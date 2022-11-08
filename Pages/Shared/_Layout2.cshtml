@@ -1,0 +1,47 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta name="viewport" content="width=device-width" />
+	<title>@ViewBag.Title</title>
+	<link href="~/css/style.css" rel="stylesheet" />
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+</head>
+<body>
+	<div id="container">
+		<div id="header">
+			<div id="logo-admin">
+				Ecommerce Admin
+			</div>
+			<div id="banner-admin">
+				<ul>
+					<li><a href="~/Account/Logout">SignOut</a></li>
+				</ul>
+			</div>
+		</div>
+		<div id="content">
+			<div id="content-left">
+				<ul>
+					<a href="~/Admin/Dashboard">
+					<li>Dashboard</li></a>
+					<a href="~/Admin/Order">
+					<li>Orders</li></a>
+					<a href="~/Admin/Product">
+					<li>Products</li></a>
+					<a href="~/Admin/Customers">
+					<li>Customers</li></a>
+				</ul>
+			</div>
+			<div id="content-right">
+					@RenderBody()
+			</div>
+		</div>
+		<div id="footer-admin">footer</div>
+	</div>
+	<script src="~/lib/jquery/dist/jquery.min.js"></script>
+	<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="~/microsoft/signalr/dist/browser/signalr.js"></script>
+	<script src="~/js/site.js"></script>
+</body>
+</html>
+
+@RenderSection("Scripts", required: false)

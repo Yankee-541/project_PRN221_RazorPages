@@ -1,0 +1,54 @@
+﻿@page
+@model WebRazor.Pages.Admin.Product.EditModel
+
+@{
+	ViewData["Title"] = "Edit";
+}
+<div class="path-admin">EDIT PRODUCT</div>
+<div class="content-main">
+    <form method="post" id="content-main-product">
+        <div class="content-main-1">
+            
+            <label asp-for="Product.ProductName"></label><br />
+            <input asp-for="Product.ProductName" /><br />
+            <span class="msg-error" asp-validation-for="Product.ProductName"></span>
+
+            <label asp-for="Product.UnitPrice"></label><br />
+            <input asp-for="Product.UnitPrice" /><br />
+            <span class="msg-error" asp-validation-for="Product.UnitPrice"></span><br />
+
+            <label asp-for="Product.QuantityPerUnit"></label><br />
+            <input asp-for="Product.QuantityPerUnit" /><br />
+            <span class="msg-error" asp-validation-for="Product.QuantityPerUnit"></span><br />
+
+            <label asp-for="Product.UnitsInStock"></label><br />
+            <input asp-for="Product.UnitsInStock" /><br />
+            <span class="msg-error" asp-validation-for="Product.UnitsInStock"></span><br />
+
+            <input type="hidden" asp-for="Product.ProductId" />
+        </div>
+        <div class="content-main-1">
+            <label asp-for="Product.CategoryId"></label><br />
+            <select asp-for="Product.CategoryId" asp-items="ViewBag.CategoryId"></select><br />
+
+            <label asp-for="Product.ReorderLevel"></label><br />
+            <input asp-for="Product.ReorderLevel" disabled type="text"><br />
+            <span class="msg-error" asp-validation-for="Product.ReorderLevel"></span><br />
+
+            <label asp-for="Product.UnitsOnOrder"></label><br />
+            <input asp-for="Product.UnitsOnOrder" disabled type="text"><br />
+            <span class="msg-error" asp-validation-for="Product.UnitsOnOrder"></span><br />
+
+
+            @Html.DisplayNameFor(model => model.Product.Discontinued)  <input class="form-check-input" asp-for="Product.Discontinued" /> <br />
+            <input type="submit" value="Save" class="btn btn-primary" />
+            <div class="msg-error">@ViewData["msg"]</div>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    }

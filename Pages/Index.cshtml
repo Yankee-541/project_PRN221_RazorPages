@@ -1,0 +1,67 @@
+﻿@page
+@model WebRazor.Pages.IndexModel
+@{
+
+}
+<div id="content-left">
+    <h3>CATEGORY</h3>
+    <ul>
+        @foreach (var item in Model.Categories)
+        {
+            <a asp-route-id="@item.CategoryId">
+            <li>@item.CategoryName</li>
+            </a>
+        }
+        <li>@ViewData["size"]</li>
+    </ul>
+</div>
+<div id="content-right">
+
+    @if (Model.Products.Count > 0)
+    {
+        <div class="path">Product</div>
+
+        <div class="content-main">
+            @foreach (var item in Model.Products)
+            {
+                <div class="product">
+                    <a asp-page="./Product/Detail" asp-route-id="@item.ProductId"><img src="img/1.jpg" /></a>
+                    <div class="name"><a asp-page="./Product/Detail" asp-route-id="@item.ProductId">@item.ProductName</a></div>
+                    <div class="price">@item.UnitPrice</div>
+                    <div><a href="">Buy now</a></div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="path">Best Sale</div>
+
+        <div class="content-main">
+            @foreach (var item in Model.BestSaleProducts)
+            {
+                <div class="product">
+                    <a asp-page="./Product/Detail" asp-route-id="@item.ProductId"><img src="img/1.jpg" /></a>
+                    <div class="name"><a asp-page="./Product/Detail" asp-route-id="@item.ProductId">@item.ProductName</a></div>
+                    <div class="price">@item.UnitPrice</div>
+                    <div><a href="">Buy now</a></div>
+                </div>
+            }
+        </div>
+
+        <div class="path">New Product</div>
+
+        <div class="content-main">
+            @foreach (var item in Model.NewProducts)
+            {
+                <div class="product">
+                    <a asp-page="./Product/Detail" asp-route-id="@item.ProductId"><img src="img/1.jpg" /></a>
+                    <div class="name"><a asp-page="./Product/Detail" asp-route-id="@item.ProductId">@item.ProductName</a></div>
+                    <div class="price">@item.UnitPrice</div>
+                    <div><a href="">Buy now</a></div>
+                </div>
+            }
+        </div>
+    }
+
+</div>

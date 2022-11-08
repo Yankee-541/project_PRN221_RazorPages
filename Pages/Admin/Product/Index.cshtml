@@ -1,0 +1,103 @@
+﻿@page
+@model WebRazor.Pages.Admin.Product.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+@{
+    var pagingmodel = new WebRazor.Helpers.PagingModel()
+            {
+                currentPage = Model.currentPage,
+                countPages = Model.countPages,
+                generateUrl = (int? currentPage) => Url.Page("/Admin/Product/Index", new { currentPage = currentPage, search = Model.search, categoryChoose = Model.categoryChoose })
+            };
+}
+<div class="path-admin">PRODUCTS LIST</b></div>
+<div class="content-main">
+    <div id="content-main-dashboard">
+        <div id="product-title-header" style="padding-bottom: 50px;">
+            <div id="product-title-1" style="width: 25%;">
+                <b>Filter by Catetory:</b>
+                <form method="get" asp-page="./Index">
+                    <select asp-for="categoryChoose">
+                        <option>--- Select ---</option>
+                        @foreach (var cate in Model.Categories)
+                        {
+                            int id = @cate.CategoryId;
+                            <option value="@cate.CategoryId">@cate.CategoryName</option>
+                        }
+                    </select>
+                    <input type="submit" value="Filter">
+                </form>
+            </div>
+            <div id="product-title-2" style="width: 55%;">
+                <form method="get" asp-page="./Index">
+                    <input asp-for="search" type="text" placeholder="Enter product name to search" />
+                    <input type="submit" value="Search" />
+                </form>
+            </div>
+            <div id="product-title-3" style="width: 20%;">
+                <a href="~/Admin/Product/Create">Create a new Product</a><br>
+               @* <form action="">
+                    <label for="upload-file">Import .xls or .xlsx file</label>
+                    <input type="file" name="file" id="upload-file" />
+                </form>*@
+                <a href="~/Admin/Export?dataTable=product">Export excel file</a>
+            </div>
+        </div>
+        <div id="order-table-admin">
+            <table id="orders">
+                <tr>
+                    <th>ProductID</th>
+                    <th>ProductName</th>
+                    <th>UnitPrice</th>
+                    <th>Unit</th>
+                    <th>UnitsInStock</th>
+                    <th>Category</th>
+                    <th>Discontinued</th>
+                    <th></th>
+                </tr>
+                <tbody id="tableBody">
+                @foreach (var item in Model.Product)
+                {
+                    <tr>
+                        <td>
+                            <a href="order-detail.html?id=@item.ProductId">@Html.DisplayFor(modelItem => item.ProductId)</a>
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ProductName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.UnitPrice)
+                        </td>
+                        <td>@Html.DisplayFor(modelItem => item.QuantityPerUnit)</td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.UnitsInStock)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Category.CategoryName)
+                        </td>
+                        <td>
+                            @if(@item.Discontinued == false){
+                                <p>False</p>
+                            }else{
+                                <p>True</p>
+                            }
+                        </td>
+
+                        <td>
+                            <a asp-page="./Edit" asp-route-id="@item.ProductId">Edit</a> |
+                            <a asp-page="./Delete" asp-route-id="@item.ProductId">Delete</a>
+                        </td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+        <div id="paging">
+            <div class="pagination">
+                <partial name="_Paging" model="@pagingmodel" />
+            </div>
+        </div>
+    </div>
+</div>
