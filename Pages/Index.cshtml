@@ -1,7 +1,14 @@
 ﻿@page
 @model WebRazor.Pages.IndexModel
 @{
-
+    	if (Model.Cart == null || Model.Cart.Count == 0)
+	{
+		ViewData["cartSize"] = 0;
+	}
+	else
+	{
+		ViewData["cartSize"] = Model.Cart.Count;
+	}
 }
 <div id="content-left">
     <h3>CATEGORY</h3>
@@ -35,33 +42,33 @@
     }
     else
     {
-        <div class="path">Best Sale</div>
+<div class="path">Best Sale</div>
 
-        <div class="content-main">
-            @foreach (var item in Model.BestSaleProducts)
-            {
-                <div class="product">
-                    <a asp-page="./Product/Detail" asp-route-id="@item.ProductId"><img src="img/1.jpg" /></a>
-                    <div class="name"><a asp-page="./Product/Detail" asp-route-id="@item.ProductId">@item.ProductName</a></div>
-                    <div class="price">@item.UnitPrice</div>
-                    <div><a href="">Buy now</a></div>
-                </div>
-            }
-        </div>
+		<div class="content-main">
+			@foreach (var item in Model.BestSaleProducts)
+			{
+				<div class="product">
+					<a asp-page="./Product/Detail" asp-route-id="@item.ProductId"><img src="img/1.jpg" /></a>
+					<div class="name"><a asp-page="./Product/Detail" asp-route-id="@item.ProductId">@item.ProductName</a></div>
+					<div class="price">@item.UnitPrice</div>
+					<div><a href="">Buy now</a></div>
+				</div>
+			}
+		</div>
 
-        <div class="path">New Product</div>
+		<div class="path">New Product</div>
 
-        <div class="content-main">
-            @foreach (var item in Model.NewProducts)
-            {
-                <div class="product">
-                    <a asp-page="./Product/Detail" asp-route-id="@item.ProductId"><img src="img/1.jpg" /></a>
-                    <div class="name"><a asp-page="./Product/Detail" asp-route-id="@item.ProductId">@item.ProductName</a></div>
-                    <div class="price">@item.UnitPrice</div>
-                    <div><a href="">Buy now</a></div>
-                </div>
-            }
-        </div>
+		<div class="content-main">
+			@foreach (var item in Model.NewProducts)
+			{
+				<div class="product">
+					<a asp-page="./Product/Detail" asp-route-id="@item.ProductId"><img src="img/1.jpg" /></a>
+					<div class="name"><a asp-page="./Product/Detail" asp-route-id="@item.ProductId">@item.ProductName</a></div>
+					<div class="price">@item.UnitPrice</div>
+					<div><a href="">Buy now</a></div>
+				</div>
+			}
+		</div>
     }
 
 </div>

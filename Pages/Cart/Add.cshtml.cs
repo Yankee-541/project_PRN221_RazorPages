@@ -66,7 +66,7 @@ namespace WebRazor.Pages.Cart
                     {
                         list.Add((int)id, 1);
                     }
-                        
+
 
                     HttpContext.Session.SetString("cart", JsonSerializer.Serialize(list));
                     TempData["success"] = "Add to cart successfull";

@@ -48,19 +48,19 @@ namespace WebRazor.Pages.Account
                 return Page();
             }
 
-            string bodyMail = "After login, please change your password! You new password is: " + passwordGenerate;
+            string bodyMail = "Hello! Your new password is: " + passwordGenerate;
 
             MailMessage mailMessage = new MailMessage();
             mailMessage.To.Add(email);
             mailMessage.Subject = "[Reset Password]";
             mailMessage.Body = bodyMail;
             mailMessage.IsBodyHtml = false;
-            mailMessage.From = new MailAddress("singerdang863@gmail.com");
+            mailMessage.From = new MailAddress("dangtdhe150020@fpt.edu.vn");
             SmtpClient smtp = new SmtpClient("smtp.gmail.com");
             smtp.Port = 587;
             smtp.UseDefaultCredentials = false;
             smtp.EnableSsl = true;
-            smtp.Credentials = new System.Net.NetworkCredential("******************", "*****");
+            smtp.Credentials = new System.Net.NetworkCredential("dangtdhe150020@fpt.edu.vn", "dang050401");
             await smtp.SendMailAsync(mailMessage);
             ViewData["msg"] = "Please check you email!";
             return Page();

@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using System.Linq;
 using WebRazor.Models;
 
@@ -17,7 +18,7 @@ namespace WebRazor.Pages
 
         [BindProperty]
         public List<Category> Categories { get; set; }
-
+        public Dictionary<Models.Product, int> Cart { get; set; } = new Dictionary<Models.Product, int>();
         [BindProperty]
         public List<Models.Product> Products { get; set; } = new List<Models.Product>();
 
@@ -46,7 +47,7 @@ namespace WebRazor.Pages
             {
                 var idsBestSale = dbContext.OrderDetails
                     .GroupBy(d => d.ProductId)
-                    .Select(g => new {ProductId = g.Key, Sum = g.Sum(d => d.Quantity) })
+                    .Select(g => new { ProductId = g.Key, Sum = g.Sum(d => d.Quantity) })
                     .OrderByDescending(o => o.Sum)
                     .Take(4);
 
@@ -59,6 +60,20 @@ namespace WebRazor.Pages
                 NewProducts = dbContext.Products
                     .OrderByDescending(p => p.ProductId).Take(4).ToList();
 
+            }
+
+            var cart = HttpContext.Session.GetString("cart");
+
+            Dictionary<int, int> list;
+            if (cart != null)
+            {
+                list = JsonSerializer.Deserialize<Dictionary<int, int>>(cart);
+                foreach (var item in list)
+                {
+                    Models.Product product = dbContext.Products.FirstOrDefault(p => p.ProductId == item.Key);
+
+                    Cart.Add(product, item.Value);
+                }
             }
         }
 

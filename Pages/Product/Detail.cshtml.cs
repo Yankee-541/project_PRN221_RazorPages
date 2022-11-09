@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using WebRazor.Models;
 
 namespace WebRazor.Pages.Product
@@ -13,6 +14,7 @@ namespace WebRazor.Pages.Product
         {
             this.dbContext = dbContext;
         }
+        public Dictionary<Models.Product, int> Cart { get; set; } = new Dictionary<Models.Product, int>();
 
         [BindProperty]
         public Models.Product Product { get; set; }
@@ -26,6 +28,20 @@ namespace WebRazor.Pages.Product
 
             Product = await dbContext.Products.FirstOrDefaultAsync(m => m.ProductId == id);
             var cat = await dbContext.Categories.ToListAsync();
+
+            var cart = HttpContext.Session.GetString("cart");
+
+            Dictionary<int, int> list;
+            if (cart != null)
+            {
+                list = JsonSerializer.Deserialize<Dictionary<int, int>>(cart);
+                foreach (var item in list)
+                {
+                    Models.Product product = dbContext.Products.FirstOrDefault(p => p.ProductId == item.Key);
+
+                    Cart.Add(product, item.Value);
+                }
+            }
 
             if (Product == null)
             {

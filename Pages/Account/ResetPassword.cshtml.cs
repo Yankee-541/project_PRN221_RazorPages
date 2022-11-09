@@ -35,8 +35,6 @@ namespace WebRazor.Pages.Account
                 return Page();
             }
             var acc = await dbContext.Accounts.SingleOrDefaultAsync(a => a.Email.Equals(Email));
-            Console.WriteLine(acc);
-
             try
             {
                 acc.Password = Password_encryption.HashPassWord(NewPassword);
