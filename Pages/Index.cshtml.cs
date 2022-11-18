@@ -1,9 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
-using Newtonsoft.Json;
-using System.Linq;
 using WebRazor.Models;
+using System.Text.Json;
 
 namespace WebRazor.Pages
 {
@@ -17,8 +15,10 @@ namespace WebRazor.Pages
         }
 
         [BindProperty]
-        public List<Category> Categories { get; set; }
         public Dictionary<Models.Product, int> Cart { get; set; } = new Dictionary<Models.Product, int>();
+        [BindProperty]
+        public List<Category> Categories { get; set; }
+
         [BindProperty]
         public List<Models.Product> Products { get; set; } = new List<Models.Product>();
 
@@ -76,6 +76,5 @@ namespace WebRazor.Pages
                 }
             }
         }
-
     }
 }

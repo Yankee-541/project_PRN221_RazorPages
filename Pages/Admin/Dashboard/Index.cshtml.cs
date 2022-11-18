@@ -43,7 +43,6 @@ namespace WebRazor.Pages.Admin.Dashboard
                 .GroupBy(o => o.OrderDate.Value.Month)
                 .ToDictionary(e => e.Key, e => e.Sum(e => e.OrderDetails.Sum(e => e.UnitPrice* e.Quantity *(1 - (decimal)e.Discount))));
             ViewData["data"] = SerializeObject(longs);
-
         }
 
         public HtmlString SerializeObject(object value)

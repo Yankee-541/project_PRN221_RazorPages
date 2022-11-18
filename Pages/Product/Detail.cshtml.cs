@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using Newtonsoft.Json;
+using System.Text.Json;
 using WebRazor.Models;
 
 namespace WebRazor.Pages.Product
@@ -67,6 +67,7 @@ namespace WebRazor.Pages.Product
             return Page();
         }
 
-        
+
     }
 }
+

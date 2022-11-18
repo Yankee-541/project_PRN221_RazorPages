@@ -5,18 +5,19 @@ using System.IO;
 using System.Data;
 using WebRazor.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Diagnostics;
 
 namespace WebRazor.Helpers
 {
     public class ExportProduct
     {
         private static readonly PRN221DBContext _context = new PRN221DBContext();
-        public static Stream? ExportExcelFile(string tableNeedExport, DateTime? dateFrom, DateTime? dateTo)
+        public static Stream? ExportExcelFile(string tableNeedExport, DateTime? dateFrom, DateTime? dateTo, string txtSearch)
         {
             DataTable dataTable;
             if (tableNeedExport.Equals("product"))
             {
-                dataTable = getProductToExport();
+                dataTable = getProductToExport(txtSearch);
 
             }
             else
@@ -33,13 +34,11 @@ namespace WebRazor.Helpers
                 excelPackage.Workbook.Properties.Author = "Hanker";
                 // Tạo title cho file Excel
                 excelPackage.Workbook.Properties.Title = "EPP test background";
-                // thêm tí comments vào làm màu 
                 excelPackage.Workbook.Properties.Comments = "This is my fucking generated Comments";
                 // Add Sheet vào file Excel
                 var workSheet = tableNeedExport.Equals("product")
                     ? excelPackage.Workbook.Worksheets.Add("Products")
                     : excelPackage.Workbook.Worksheets.Add("Orders");
-                // Lấy Sheet bạn vừa mới tạo ra để thao tác 
                 // Đổ data vào Excel file
                 workSheet.Cells.LoadFromDataTable(dataTable, true);
                 // BindingFormatForExcel(workSheet, list);
@@ -106,9 +105,20 @@ namespace WebRazor.Helpers
             return null;
         }
 
-        private static DataTable? getProductToExport()
+        private static DataTable? getProductToExport(string txtSearch)
         {
-            var productList = _context.Products.Include(p => p.Category).ToList();
+            var pro = (from p in _context.Products.Include(p => p.Category) select p);
+            List<Product> productList;
+            int idCategory = Int32.Parse(txtSearch);
+            if (idCategory > 0)
+            {
+                productList = pro.Where(p => p.CategoryId == idCategory).ToList();
+            }
+            else
+            {
+                productList = pro.ToList();
+            }
+
             if (productList != null)
             {
                 DataTable dataTable = new DataTable();

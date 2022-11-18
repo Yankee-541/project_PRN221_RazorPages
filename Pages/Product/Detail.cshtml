@@ -1,7 +1,7 @@
 ﻿@page "{id:int?}"
 @model WebRazor.Pages.Product.DetailModel
 @{
-        ViewData["PageTitle"] = "Product Details";
+    ViewData["PageTitle"] = "Product Details";
     if (Model.Cart == null || Model.Cart.Count == 0)
     {
         ViewData["cartSize"] = 0;

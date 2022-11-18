@@ -11040,19 +11040,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\admin\\.nuget\\packages\\": {}
+    "C:\\Users\\dang.tran2\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "F:\\Documents\\FPT_University\\Semester_7\\PRN221\\WebRazor\\WebRazor.csproj",
+      "projectUniqueName": "C:\\Users\\dang.tran2\\Documents\\Document\\Source code\\FPT\\pprn\\project_PRN221_RazorPages\\WebRazor.csproj",
       "projectName": "WebRazor",
-      "projectPath": "F:\\Documents\\FPT_University\\Semester_7\\PRN221\\WebRazor\\WebRazor.csproj",
-      "packagesPath": "C:\\Users\\admin\\.nuget\\packages\\",
-      "outputPath": "F:\\Documents\\FPT_University\\Semester_7\\PRN221\\WebRazor\\obj\\",
+      "projectPath": "C:\\Users\\dang.tran2\\Documents\\Document\\Source code\\FPT\\pprn\\project_PRN221_RazorPages\\WebRazor.csproj",
+      "packagesPath": "C:\\Users\\dang.tran2\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\dang.tran2\\Documents\\Document\\Source code\\FPT\\pprn\\project_PRN221_RazorPages\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\dang.tran2\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -11134,7 +11134,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.402\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.400\\RuntimeIdentifierGraph.json"
       }
     }
   }

@@ -139,7 +139,7 @@ namespace WebRazor.Pages.Cart
                 ViewData["msg"] = "Order successfull";
                 Dictionary<Stream, string> attachments = new Dictionary<Stream, string>();
 
-                attachments.Add(new MemoryStream(PDFHelper.GenPDFInvoice(ContactName, order.ShipAddress, listProducts).Save()), "Invoice_" + order.OrderId);
+                attachments.Add(new MemoryStream(PDFHelper.GenPDFInvoice(ContactName, order.ShipAddress, listProducts).Save()), "Invoice_" + order.OrderId + ".pdf");
                 SendMailHelper.SendMail(Auth.Email, "Your Invoice", attachments);
                 HttpContext.Session.Remove("cart");
             }

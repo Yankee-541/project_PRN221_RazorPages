@@ -6,7 +6,7 @@ namespace WebRazor.Pages.Admin
     public class ExportModel : PageModel
     {
 
-        public IActionResult OnGet(string? dataTable, DateTime? dateFrom, DateTime? dateTo)
+        public IActionResult OnGet(string? dataTable, DateTime? dateFrom, DateTime? dateTo, string? txtSearch)
         {
             if (HttpContext.Session.GetString("Admin") == null)
             {
@@ -28,7 +28,7 @@ namespace WebRazor.Pages.Admin
             string fileName;
             if (dataTable.Equals("product"))
             {
-                fileName = "ProductExport.xlsx";
+                fileName = "ProductExport_"+ txtSearch + ".xlsx";
             }
             else
             {
@@ -37,7 +37,7 @@ namespace WebRazor.Pages.Admin
                 fileName = "OrderExport_" + dateF + "_To_" + dateT + ".xlsx";
             }
             
-            var data = Helpers.ExportProduct.ExportExcelFile(dataTable, dateFrom, dateTo);
+            var data = Helpers.ExportProduct.ExportExcelFile(dataTable, dateFrom, dateTo, txtSearch);
             data.Position = 0;
 
             return File(data, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", fileName);

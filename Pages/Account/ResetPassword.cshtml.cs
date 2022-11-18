@@ -13,21 +13,17 @@ namespace WebRazor.Pages.Account
         {
             this.dbContext = dbContext;
         }
-        public void OnGet()
-        {
-        }
-
         [BindProperty]
         public string NewPassword { get; set; }
         [BindProperty]
         public string RePassword { get; set; }
         [BindProperty]
         public string Email { get; set; }
-        public void OnGet(string email)
+        public void OnGetAsync(string email)
         {
             Email = email;
         }
-        public async Task<IActionResult> OnPost()
+        public async Task<IActionResult> OnPostAsync()
         {
             if (RePassword != NewPassword)
             {
